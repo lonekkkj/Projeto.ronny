@@ -718,3 +718,11 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .profile-edit { grid-template-columns: 1fr; }
   .profile-form { grid-template-columns: 1fr; }
 }
+
+/* Python console */
+.stage-console{
+  background:#0d1117; color:#a8e6c7; font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:13px; line-height:1.5; padding:12px 14px; border-radius:10px;
+  min-height:140px; max-height:240px; overflow:auto; white-space:pre-wrap;
+  border:1px solid #2a3545; margin-bottom:10px;
+}

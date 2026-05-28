@@ -207,13 +207,39 @@
   const blocklyDiv = $('#blocklyDiv');
   if (!blocklyDiv || typeof Blockly === 'undefined') return;
 
-  // Blocos customizados
+  // Blocos customizados — Robô (Movimento/Lógica)
   Blockly.Blocks['ronny_avancar'] = { init() { this.appendDummyInput().appendField('→ avançar 1 passo'); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour('#7fb59a'); this.setTooltip('Move o robô uma casa para frente'); } };
   Blockly.Blocks['ronny_virar_esq'] = { init() { this.appendDummyInput().appendField('↺ virar à esquerda'); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour('#7fb59a'); } };
   Blockly.Blocks['ronny_virar_dir'] = { init() { this.appendDummyInput().appendField('↻ virar à direita'); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour('#7fb59a'); } };
   Blockly.Blocks['ronny_dizer'] = { init() { this.appendValueInput('MSG').setCheck(null).appendField('💬 dizer'); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour('#7fb59a'); } };
   Blockly.Blocks['ronny_tem_obstaculo'] = { init() { this.appendDummyInput().appendField('🚧 tem obstáculo à frente?'); this.setOutput(true, 'Boolean'); this.setColour('#d6a96a'); } };
   Blockly.Blocks['ronny_chegou'] = { init() { this.appendDummyInput().appendField('🌱 chegou ao objetivo?'); this.setOutput(true, 'Boolean'); this.setColour('#d6a96a'); } };
+
+  // Blocos Python prontos (apenas arrastar)
+  const PY = '#4b8bbe';
+  Blockly.Blocks['py_declarar_int'] = { init(){ this.appendDummyInput()
+      .appendField('🐍 declarar inteiro').appendField(new Blockly.FieldTextInput('x'),'NOME').appendField('=');
+      this.appendValueInput('VAL').setCheck('Number');
+      this.setInputsInline(true); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour(PY); } };
+  Blockly.Blocks['py_declarar_str'] = { init(){ this.appendDummyInput()
+      .appendField('🐍 declarar texto').appendField(new Blockly.FieldTextInput('nome'),'NOME').appendField('=');
+      this.appendValueInput('VAL').setCheck('String');
+      this.setInputsInline(true); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour(PY); } };
+  Blockly.Blocks['py_imprimir'] = { init(){ this.appendValueInput('MSG').appendField('🖨 print(');
+      this.appendDummyInput().appendField(')');
+      this.setInputsInline(true); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour(PY); } };
+  Blockly.Blocks['py_imprimir_var'] = { init(){ this.appendDummyInput()
+      .appendField('🖨 print(').appendField(new Blockly.FieldTextInput('x'),'NOME').appendField(')');
+      this.setPreviousStatement(true); this.setNextStatement(true); this.setColour(PY); } };
+  Blockly.Blocks['py_somar'] = { init(){ this.appendDummyInput()
+      .appendField('➕ ').appendField(new Blockly.FieldTextInput('soma'),'NOME').appendField('=');
+      this.appendValueInput('A').setCheck('Number');
+      this.appendDummyInput().appendField('+');
+      this.appendValueInput('B').setCheck('Number');
+      this.setInputsInline(true); this.setPreviousStatement(true); this.setNextStatement(true); this.setColour(PY); } };
+  Blockly.Blocks['py_ler_var'] = { init(){ this.appendDummyInput()
+      .appendField(new Blockly.FieldTextInput('x'),'NOME');
+      this.setOutput(true, null); this.setColour(PY); } };
 
   const JG = Blockly.JavaScript;
   JG.forBlock = JG.forBlock || {};
@@ -225,14 +251,25 @@
   addGen('ronny_tem_obstaculo', () => ['api.temObstaculo()', JG.ORDER_FUNCTION_CALL]);
   addGen('ronny_chegou', () => ['api.chegou()', JG.ORDER_FUNCTION_CALL]);
 
+  const safeName = (n) => 'v_' + String(n||'x').replace(/[^a-zA-Z0-9_]/g,'_');
+  addGen('py_declarar_int', (b) => { const n = safeName(b.getFieldValue('NOME')); const v = JG.valueToCode(b,'VAL',JG.ORDER_NONE)||'0'; return `${n} = parseInt(${v});\n`; });
+  addGen('py_declarar_str', (b) => { const n = safeName(b.getFieldValue('NOME')); const v = JG.valueToCode(b,'VAL',JG.ORDER_NONE)||"''"; return `${n} = String(${v});\n`; });
+  addGen('py_imprimir', (b) => { const v = JG.valueToCode(b,'MSG',JG.ORDER_NONE)||"''"; return `api.imprimir(${v});\n`; });
+  addGen('py_imprimir_var', (b) => { const n = safeName(b.getFieldValue('NOME')); return `api.imprimir(typeof ${n}!=='undefined'?${n}:'(${b.getFieldValue('NOME')} indefinido)');\n`; });
+  addGen('py_somar', (b) => { const n = safeName(b.getFieldValue('NOME')); const a = JG.valueToCode(b,'A',JG.ORDER_NONE)||'0'; const c = JG.valueToCode(b,'B',JG.ORDER_NONE)||'0'; return `${n} = (${a})+(${c});\n`; });
+  addGen('py_ler_var', (b) => [safeName(b.getFieldValue('NOME')), JG.ORDER_ATOMIC]);
+
   const MISSIONS = [
     { id:'m1', title:'Missão 1 — Caminho reto', desc:'Leve o robô 🤖 até a planta 🌱 andando em linha reta.', level:'Fácil', time:'5 min', size:5, start:{x:0,y:2,dir:1}, goal:{x:4,y:2}, walls:[], hint:'Use 4 blocos "avançar".' },
     { id:'m2', title:'Missão 2 — Use repetição', desc:'Mesmo caminho, mas use o bloco "repetir" para encurtar.', level:'Fácil', time:'6 min', size:5, start:{x:0,y:2,dir:1}, goal:{x:4,y:2}, walls:[], hint:'Coloque "avançar" dentro de "repetir 4 vezes".' },
     { id:'m3', title:'Missão 3 — Curva à direita', desc:'Avance, vire à direita e continue até a planta.', level:'Médio', time:'8 min', size:5, start:{x:0,y:0,dir:1}, goal:{x:3,y:3}, walls:[], hint:'Combine "avançar" e "virar à direita".' },
     { id:'m4', title:'Missão 4 — Desviar do obstáculo', desc:'Há um muro no caminho. Use a condição "se tem obstáculo".', level:'Médio', time:'10 min', size:5, start:{x:0,y:2,dir:1}, goal:{x:4,y:2}, walls:[{x:2,y:2}], hint:'Se tem obstáculo → vire, avance, vire de novo.' },
-    { id:'m5', title:'Missão 5 — Enquanto não chegar', desc:'Use "repetir enquanto" com "chegou ao objetivo?".', level:'Difícil', time:'12 min', size:6, start:{x:0,y:0,dir:1}, goal:{x:5,y:5}, walls:[{x:2,y:1},{x:3,y:3}], hint:'Enquanto NÃO chegou: se obstáculo vire, senão avance.' },
-    { id:'m6', title:'Missão 6 — Livre', desc:'Sem objetivo. Explore os blocos no seu ritmo. 🌿', level:'Livre', time:'à vontade', size:6, start:{x:0,y:0,dir:1}, goal:null, walls:[] }
+    { id:'m5', title:'Missão 5 — Python: variável e print', desc:'Use os blocos 🐍 Python para declarar uma variável inteira e imprimir seu valor na tela.', level:'Difícil', time:'8 min', python:true, expected:['10'], hint:'Arraste "declarar inteiro x = 10" e depois "print(x)".' },
+    { id:'m6', title:'Missão 6 — Python: soma e print', desc:'Declare duas variáveis inteiras, some-as e imprima o resultado.', level:'Difícil', time:'10 min', python:true, expected:['7'], hint:'Use "declarar inteiro", o bloco "soma = a + b" e "print(soma)".' },
+    { id:'m7', title:'Missão 7 — Python: olá mundo', desc:'Imprima a mensagem "Olá, mundo!" usando o bloco print.', level:'Difícil', time:'5 min', python:true, expected:['Olá, mundo!'], hint:'Arraste o bloco print com o texto "Olá, mundo!".' },
+    { id:'m8', title:'Missão 8 — Livre', desc:'Sem objetivo. Explore os blocos no seu ritmo. 🌿', level:'Livre', time:'à vontade', size:6, start:{x:0,y:0,dir:1}, goal:null, walls:[] }
   ];
+
 
   const list = $('#missionList');
   MISSIONS.forEach(m => {
@@ -251,13 +288,17 @@
   });
 
   let current = MISSIONS[0];
-  let robot = { ...current.start };
+  let robot = { x:0, y:0, dir:1 };
   let said = '';
+  let pyOutput = [];
   const stageGrid = $('#stageGrid');
+  const stageConsole = $('#stageConsole');
   const feedback = $('#feedback');
+  const nextBtn = $('#nextBtn');
 
   function setFeedback(msg, type = '') { feedback.textContent = msg; feedback.className = 'feedback ' + type; }
   function renderGrid() {
+    if (!current.size) { stageGrid.innerHTML = ''; return; }
     const n = current.size;
     stageGrid.style.setProperty('--n', n);
     stageGrid.innerHTML = '';
@@ -265,7 +306,7 @@
       for (let x = 0; x < n; x++) {
         const c = document.createElement('div');
         c.className = 'cell';
-        if (current.walls.some(w => w.x === x && w.y === y)) c.classList.add('wall');
+        if ((current.walls||[]).some(w => w.x === x && w.y === y)) c.classList.add('wall');
         if (current.goal && current.goal.x === x && current.goal.y === y) { c.classList.add('goal-cell'); c.textContent = '🌱'; }
         if (robot.x === x && robot.y === y) {
           c.classList.add('robot-cell');
@@ -279,13 +320,24 @@
       }
     }
   }
+  function renderConsole() {
+    if (!stageConsole) return;
+    stageConsole.textContent = pyOutput.length ? pyOutput.join('\n') : '# saída do print() aparece aqui';
+  }
   function loadMission(id) {
     current = MISSIONS.find(m => m.id === id) || MISSIONS[0];
-    robot = { ...current.start }; said = '';
+    robot = current.start ? { ...current.start } : { x:0,y:0,dir:1 };
+    said = ''; pyOutput = [];
     $('#missionTitle').textContent = current.title;
     $('#missionDesc').textContent = current.desc + (current.hint ? ' 💡 ' + current.hint : '');
     $('#stageTitle').textContent = current.title;
-    renderGrid();
+    if (current.python) {
+      stageGrid.hidden = true; stageConsole.hidden = false; renderConsole();
+    } else {
+      stageGrid.hidden = false; stageConsole.hidden = true; renderGrid();
+    }
+    if (nextBtn) nextBtn.hidden = true;
+    if (workspace) workspace.clear();
     setFeedback('Pronto quando você estiver 😊');
   }
 
@@ -294,7 +346,7 @@
   const dx = [0,1,0,-1], dy = [-1,0,1,0];
   const frontCell = () => ({ x: robot.x + dx[robot.dir], y: robot.y + dy[robot.dir] });
   const inBounds = c => c.x >= 0 && c.y >= 0 && c.x < current.size && c.y < current.size;
-  const isWall = c => current.walls.some(w => w.x === c.x && w.y === c.y);
+  const isWall = c => (current.walls||[]).some(w => w.x === c.x && w.y === c.y);
 
   const api = {
     async avancar() {
@@ -306,7 +358,8 @@
     async virarDir() { robot.dir = (robot.dir + 1) % 4; renderGrid(); beep(520, .05); await sleep(stepDelay()/2); },
     async dizer(msg) { said = String(msg); setFeedback('💬 ' + said); await sleep(stepDelay()); },
     temObstaculo() { const f = frontCell(); return !inBounds(f) || isWall(f); },
-    chegou() { return !!(current.goal && current.goal.x === robot.x && current.goal.y === robot.y); }
+    chegou() { return !!(current.goal && current.goal.x === robot.x && current.goal.y === robot.y); },
+    imprimir(v) { pyOutput.push(String(v)); renderConsole(); }
   };
 
   const workspace = Blockly.inject('blocklyDiv', {
@@ -326,19 +379,36 @@
     })
   });
 
-  Blockly.Xml.domToWorkspace(
-    Blockly.utils.xml.textToDom('<xml><block type="ronny_avancar" x="40" y="40"></block></xml>'),
-    workspace
-  );
-
   const onResize = () => Blockly.svgResize(workspace);
   window.addEventListener('resize', onResize);
   setTimeout(onResize, 100);
 
-  $('#clearBtn')?.addEventListener('click', () => { workspace.clear(); setFeedback('Espaço limpo. Recomece quando quiser 🌿'); });
-  $('#resetBtn')?.addEventListener('click', () => { robot = { ...current.start }; renderGrid(); setFeedback('Tudo no lugar de novo 🌿'); });
+  function showNextIfAvailable() {
+    if (!nextBtn) return;
+    const idx = MISSIONS.findIndex(m => m.id === current.id);
+    if (idx >= 0 && idx < MISSIONS.length - 1) {
+      nextBtn.hidden = false;
+      nextBtn.dataset.next = MISSIONS[idx + 1].id;
+    }
+  }
+  nextBtn?.addEventListener('click', () => {
+    const nx = nextBtn.dataset.next;
+    if (nx) loadMission(nx);
+  });
+
+  $('#clearBtn')?.addEventListener('click', () => { workspace.clear(); pyOutput = []; renderConsole(); setFeedback('Espaço limpo. Recomece quando quiser 🌿'); });
+  $('#resetBtn')?.addEventListener('click', () => {
+    robot = current.start ? { ...current.start } : { x:0,y:0,dir:1 };
+    pyOutput = [];
+    if (current.python) renderConsole(); else renderGrid();
+    if (nextBtn) nextBtn.hidden = true;
+    setFeedback('Tudo no lugar de novo 🌿');
+  });
   $('#runBtn')?.addEventListener('click', async () => {
-    robot = { ...current.start }; renderGrid();
+    robot = current.start ? { ...current.start } : { x:0,y:0,dir:1 };
+    pyOutput = [];
+    if (current.python) renderConsole(); else renderGrid();
+    if (nextBtn) nextBtn.hidden = true;
     setFeedback('Executando com calma...');
     let code = '';
     try { code = Blockly.JavaScript.workspaceToCode(workspace); }
@@ -350,13 +420,20 @@
     } catch (err) {
       if (err && err.message !== 'block') { console.warn(err); setFeedback('Algo travou no caminho. Sem problema — vamos tentar de novo 🌿', 'gentle'); }
     }
-    if (current.goal) {
-      if (api.chegou()) { setFeedback('Você chegou! 🌱 Boa missão!', 'success'); beep(660, .2); }
+    if (current.python) {
+      const expected = current.expected || [];
+      const ok = expected.length === 0 || expected.every(e => pyOutput.map(s=>s.trim()).includes(String(e).trim()));
+      if (ok && pyOutput.length) { setFeedback('Saída correta! 🐍✨ Boa missão!', 'success'); beep(660,.2); showNextIfAvailable(); }
+      else setFeedback('Quase lá 😊 Esperado: ' + (expected.join(', ') || '(qualquer saída)') + '. Ajuste os blocos.', 'gentle');
+    } else if (current.goal) {
+      if (api.chegou()) { setFeedback('Você chegou! 🌱 Boa missão!', 'success'); beep(660, .2); showNextIfAvailable(); }
       else setFeedback('Quase lá 😊 Ajuste os blocos e tente de novo.', 'gentle');
     } else {
       setFeedback('Execução concluída 🌿' + (said ? ' — você disse: "' + said + '"' : ''), 'success');
+      showNextIfAvailable();
     }
   });
 
   loadMission('m1');
 })();
+

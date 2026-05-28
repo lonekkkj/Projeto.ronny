@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/Ronny-Capa.png" type="image/png" />
+  <link rel="icon" href="/ronny-logo.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="https://unpkg.com/blockly/msg/pt-br.js"></script>
@@ -22,7 +22,7 @@
   <header class="topbar" role="banner">
     <div class="container topbar-inner">
       <a href="index.html" class="brand" aria-label="Voltar para a página inicial do Ronny">
-        <img src="/ronny-logo.jpeg" alt="Logo Projeto Ronny" class="brand-logo" width="44" height="44" />
+        <img src="/ronny-logo.png" alt="Logo Projeto Ronny" class="brand-logo" width="44" height="44" />
         <span class="brand-text">Ronny</span>
       </a>
 
@@ -52,7 +52,7 @@
       <div class="container">
         <header class="section-head">
           <span class="eyebrow">Perfil do aluno</span>
-          <h1>Olá! Aqui é o seu espaço. 🌿</h1>
+          <h1>Olá! Aqui é o seu espaço. ☺️</h1>
           <p class="muted">Login realizado via <a href="https://seductec.seduc.pi.gov.br/login/index.php?loginredirect=1" target="_blank" rel="noopener">SEDUCTEC</a>. Edite seu perfil e siga no seu ritmo.</p>
         </header>
 
@@ -66,7 +66,7 @@
               <button class="avatar-chip" data-emoji="🐨" aria-checked="false">🐨</button>
               <button class="avatar-chip" data-emoji="🦁" aria-checked="false">🦁</button>
               <button class="avatar-chip" data-emoji="🦉" aria-checked="false">🦉</button>
-              <button class="avatar-chip" data-emoji="🐰" aria-checked="false">🐰</button>
+              <button class="avatar-chip" data-emoji="🐢" aria-checked="false">🐢</button>
             </div>
           </div>
 
@@ -99,7 +99,7 @@
         </div>
 
         <div class="tabs" role="tablist" aria-label="Áreas do aluno" style="margin-top:24px">
-          <button class="tab" role="tab" aria-selected="true" data-tab="aluno-plataforma">🏠 Jornada</button>
+          <button class="tab" role="tab" aria-selected="true" data-tab="aluno-plataforma">🏠 Plataforma</button>
           <button class="tab" role="tab" aria-selected="false" data-tab="aluno-atividade">🧩 Atividade</button>
           <button class="tab" role="tab" aria-selected="false" data-tab="aluno-programar">💻 Programar</button>
         </div>
@@ -118,10 +118,10 @@
               </div>
 
               <div class="badges" aria-label="Conquistas">
-                <span class="badge" title="Primeiro algoritmo">🌟</span>
-                <span class="badge" title="Foco de 20 minutos">🧘</span>
-                <span class="badge" title="5 dias seguidos">🌿</span>
-                <span class="badge dim" title="A conquistar">🔒</span>
+                <span class="badge" title="Primeiro algoritmo">🥉</span>
+                <span class="badge" title="Foco de 20 minutos">🥈</span>
+                <span class="badge" title="5 dias seguidos">🥇</span>
+                <span class="badge dim" title="A conquistar">🏆</span>
               </div>
 
               <button class="btn btn-soft btn-block" id="focusMode">🎧 Ativar modo foco</button>
@@ -130,7 +130,7 @@
             <div class="dash-main">
               <h3 class="dash-title">Roteiro de hoje</h3>
               <ol class="roadmap" role="list">
-                <li class="step done"><span class="step-mark" aria-hidden="true">✓</span><div><p class="step-title">Aquecimento — Sequências</p><p class="muted small">5 min · concluído</p></div></li>
+                <li class="step done"><span class="step-mark" aria-hidden="true">✓</span><div><p class="step-title">Aquecimento em Sequências</p><p class="muted small">5 min · concluído</p></div></li>
                 <li class="step current"><span class="step-mark" aria-hidden="true">▶</span><div><p class="step-title">Missão: Guie o robô até a planta</p><p class="muted small">10 min · em andamento</p><button class="btn btn-primary btn-sm" data-goto-tab="aluno-programar">Abrir missão</button></div></li>
                 <li class="step"><span class="step-mark" aria-hidden="true">3</span><div><p class="step-title">Repetições com calma</p><p class="muted small">8 min</p></div></li>
                 <li class="step"><span class="step-mark" aria-hidden="true">4</span><div><p class="step-title">Reflexão final</p><p class="muted small">3 min</p></div></li>
@@ -154,9 +154,6 @@
           <header class="section-head">
             <span class="eyebrow">Editor Blockly</span>
             <h2 id="missionTitle">Arraste blocos. Monte ideias. Veja acontecer.</h2>
-            <p id="missionDesc">Escolha uma atividade na aba anterior ou comece livremente abaixo.</p>
-          </header>
-
           <div class="editor editor-blockly">
             <div class="blockly-wrap">
               <div id="blocklyDiv" aria-label="Área de programação em blocos"></div>
@@ -165,10 +162,12 @@
             <div class="stage" aria-label="Resultado da execução">
               <p class="stage-title" id="stageTitle">Missão livre</p>
               <div class="stage-grid" id="stageGrid" aria-label="Mapa do robô"></div>
+              <pre class="stage-console" id="stageConsole" hidden aria-label="Saída do console Python"></pre>
               <div class="stage-actions">
                 <button class="btn btn-primary btn-block" id="runBtn">▶ Executar</button>
                 <button class="btn btn-soft btn-block" id="resetBtn">↺ Recomeçar</button>
                 <button class="btn btn-ghost btn-block" id="clearBtn">🧹 Limpar blocos</button>
+                <button class="btn btn-primary btn-block" id="nextBtn" hidden>➡ Próxima atividade</button>
               </div>
               <p class="feedback" id="feedback" aria-live="polite">Pronto quando você estiver 😊</p>
             </div>
@@ -179,6 +178,32 @@
               <block type="ronny_avancar"></block>
               <block type="ronny_virar_esq"></block>
               <block type="ronny_virar_dir"></block>
+              <block type="ronny_dizer"><value name="MSG"><shadow type="text"><field name="TEXT">Oi!</field></shadow></value></block>
+            </category>
+            <category name="Lógica" colour="#d6a96a">
+              <block type="controls_if"></block><block type="logic_compare"></block><block type="logic_operation"></block><block type="logic_boolean"></block>
+              <block type="ronny_tem_obstaculo"></block><block type="ronny_chegou"></block>
+            </category>
+            <category name="Repetições" colour="#c98a8a">
+              <block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">3</field></shadow></value></block>
+              <block type="controls_whileUntil"></block>
+              <block type="controls_for"><value name="FROM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="TO"><shadow type="math_number"><field name="NUM">5</field></shadow></value><value name="BY"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>
+            </category>
+            <category name="Matemática" colour="#6c8ed1"><block type="math_number"></block><block type="math_arithmetic"></block><block type="math_modulo"></block></category>
+            <category name="Texto" colour="#b58fcf"><block type="text"></block><block type="text_join"></block></category>
+            <category name="Python 🐍" colour="#4b8bbe">
+              <label text="Blocos prontos — só arrastar"></label>
+              <block type="py_declarar_int"><field name="NOME">x</field><value name="VAL"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>
+              <block type="py_declarar_str"><field name="NOME">nome</field><value name="VAL"><shadow type="text"><field name="TEXT">Ronny</field></shadow></value></block>
+              <block type="py_imprimir"><value name="MSG"><shadow type="text"><field name="TEXT">Olá, mundo!</field></shadow></value></block>
+              <block type="py_imprimir_var"><field name="NOME">x</field></block>
+              <block type="py_somar"><field name="NOME">soma</field><value name="A"><shadow type="math_number"><field name="NUM">2</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">3</field></shadow></value></block>
+              <block type="py_ler_var"><field name="NOME">x</field></block>
+            </category>
+            <category name="Variáveis" colour="#b58fcf" custom="VARIABLE"></category>
+            <category name="Funções" colour="#8aa0b3" custom="PROCEDURE"></category>
+          </xml>
+
               <block type="ronny_dizer"><value name="MSG"><shadow type="text"><field name="TEXT">Oi!</field></shadow></value></block>
             </category>
             <category name="Lógica" colour="#d6a96a">
