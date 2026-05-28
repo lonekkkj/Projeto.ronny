@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ronny — Plataforma educacional neuroinclusiva para ensinar lógica de programação a estudantes do ensino médio técnico, com foco em acessibilidade cognitiva e TEA Nível 1." />
+  <meta name="theme-color" content="#0f1419" />
+  <title>Ronny</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/Ronny-Capa.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Blockly -->
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/msg/pt-br.js"></script>
+</head>
+
+<body data-theme="dark" data-font="md" data-motion="on">
+
+  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="topbar" role="banner">
+    <div class="container topbar-inner">
+      <a href="#inicio" class="brand" aria-label="Projeto Ronny — página inicial">
+        <img src="/ronny-logo.jpeg" alt="Logo Projeto Ronny" class="brand-logo" width="44" height="44" />
+        <span class="brand-text">Ronny</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#parceiros">Parceiros</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="openA11y" aria-label="Abrir painel de acessibilidade" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="2" fill="currentColor"/><path d="M5 9h14M9 9l1 12M15 9l-1 12M9 14h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span>Acessibilidade</span>
+        </button>
+        <button class="btn btn-primary" data-open-login>Entrar</button>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Plataforma neuroinclusiva</span>
+          <h1>Ensinando código, conectando talentos e transformando o futuro.</h1>
+          <p class="lead">
+            O <strong>Ronny</strong> é um ambiente acolhedor de aprendizagem em lógica de programação, criado para estudantes neurodivergentes do ensino médio técnico — em especial alunos com <abbr title="Transtorno do Espectro Autista">TEA</abbr> Nível 1.
+          </p>
+          <div class="hero-actions">
+            <a href="#" class="btn btn-primary btn-lg" data-open-login>Começar a programar</a>
+            <a href="#sobre" class="btn btn-ghost btn-lg">Conhecer o Ronny</a>
+          </div>
+          <ul class="hero-points" role="list">
+            <li><span class="dot" aria-hidden="true"></span> Sem estímulos excessivos</li>
+            <li><span class="dot" aria-hidden="true"></span> Rotina previsível</li>
+            <li><span class="dot" aria-hidden="true"></span> Feedback acolhedor</li>
+          </ul>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <div class="card-bar">
+            <span></span><span></span><span></span>
+            <p>missao_do_dia.ronny</p>
+          </div>
+          <div class="card-body">
+            <div class="mini-block bg-seq">Início</div>
+            <div class="mini-block bg-var">definir <em>passos</em> = 5</div>
+            <div class="mini-block bg-loop">repetir <em>passos</em> vezes</div>
+            <div class="mini-block bg-cond indent">se <em>obstáculo</em></div>
+            <div class="mini-block bg-act indent2">desviar</div>
+            <div class="mini-block bg-act">avançar</div>
+            <div class="mini-block bg-end">Fim 🌱</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOBRE ============ -->
+    <section class="section" id="sobre">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Sobre o Ronny</span>
+          <h2>Uma plataforma desenhada com a neurodiversidade no centro.</h2>
+          <p>Construída a partir dos princípios do <strong>Design Universal para Aprendizagem (DUA)</strong>, da acessibilidade digital e da redução da carga cognitiva. Cada detalhe — cor, espaçamento, som, palavra — foi pensado para reduzir ansiedade e ampliar autonomia.</p>
+        </header>
+
+        <div class="grid grid-3">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🧠</div>
+            <h3>Acessibilidade cognitiva</h3>
+            <p>Interfaces previsíveis, linguagem simples e zero poluição visual para reduzir a sobrecarga sensorial.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🧩</div>
+            <h3>Programação visual</h3>
+            <p>Blocos arrastáveis que transformam lógica de programação em uma experiência tátil e clara.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🌱</div>
+            <h3>Gamificação leve</h3>
+            <p>Reforço positivo sem competição agressiva — o aluno avança no seu tempo, com segurança.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BENEFÍCIOS ============ -->
+    <section class="section section-alt" id="beneficios">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Benefícios</span>
+          <h2>Para alunos e para professores.</h2>
+        </header>
+
+        <div class="grid grid-2">
+          <div class="panel">
+            <h3>Para alunos</h3>
+            <ul class="check-list" role="list">
+              <li>Rotina previsível e roteiro visual do dia</li>
+              <li>Modo foco para reduzir distrações</li>
+              <li>Feedback acolhedor — nunca punitivo</li>
+              <li>Conquistas suaves e jornada gamificada</li>
+              <li>Tempo estimado por atividade</li>
+              <li>Funciona offline com cache local</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Para professores e AEE</h3>
+            <ul class="check-list" role="list">
+              <li>Tempo de foco e taxa de hesitação</li>
+              <li>Evolução do aluno em poucos gráficos</li>
+              <li>Relatórios automáticos exportáveis em PDF</li>
+              <li>Inteligência pedagógica acionável</li>
+              <li>Painel limpo, objetivo e sem ruído</li>
+              <li>Suporte para planos de ensino individualizados</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- (As áreas de Aluno e Professor agora vivem em páginas separadas: aluno.html e professor.html) -->
+
+
+
+    <!-- ============ PARCEIROS ============ -->
+    <section class="section section-alt" id="parceiros">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Parceiros institucionais</span>
+          <h2>Construído com escolas, AEEs e universidades.</h2>
+        </header>
+        <div class="partners" aria-label="Logos de parceiros (fictícios)">
+          <span>SENAI</span><span>IFSP</span><span>Instituto Inclui+</span><span>NeuroEd</span><span>RedeAEE</span><span>TechEduca</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div>
+        <a href="#inicio" class="brand"><img src="/ronny-logo.jpeg" alt="Logo Projeto Ronny" class="brand-logo" width="36" height="36" /><span class="brand-text">Ronny</span></a>
+        <p class="muted small">Ensinando código, conectando talentos e transformando o futuro.</p>
+      </div>
+      <div>
+        <h4>Plataforma</h4>
+        <ul><li><a href="#sobre">Sobre</a></li><li><a href="#beneficios">Benefícios</a></li><li><a href="#" data-open-login>Entrar</a></li></ul>
+      </div>
+      <div>
+        <h4>Educadores</h4>
+        <ul><li><a href="#impacto">Impacto</a></li><li><a href="#parceiros">Parceiros</a></li></ul>
+      </div>
+      <div>
+        <h4>Acessibilidade</h4>
+        <ul><li><a href="#" id="footerA11y">Painel de acessibilidade</a></li><li><a href="#">Conformidade WCAG 2.2</a></li></ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted small">© <span id="year"></span> Ronny · Projeto educacional fictício · Feito com cuidado para a neurodiversidade.</p>
+    </div>
+  </footer>
+
+  <!-- ============ ROLE GATE (escolha de perfil) ============ -->
+  <div class="modal" id="roleGate" role="dialog" aria-modal="true" aria-labelledby="roleTitle" hidden>
+    <div class="modal-backdrop" data-role-close></div>
+    <div class="modal-panel role-panel">
+      <button class="modal-close" data-role-close aria-label="Fechar">×</button>
+      <div class="role-head">
+        <img src="/ronny-logo.jpeg" alt="" class="brand-logo" width="56" height="56" />
+        <h2 id="roleTitle">Como você quer entrar hoje?</h2>
+        <p class="muted">Escolha seu perfil. O login é feito pelo portal <strong>SEDUCTEC</strong>. 🌿</p>
+      </div>
+      <div class="role-grid">
+        <a class="role-card" href="aluno.html" data-role="aluno">
+          <span class="role-emoji" aria-hidden="true">🎒</span>
+          <span class="role-name">Sou Aluno</span>
+          <span class="role-desc muted small">Perfil editável, atividades e programação em blocos.</span>
+        </a>
+        <a class="role-card" href="professor.html" data-role="professor">
+          <span class="role-emoji" aria-hidden="true">👩‍🏫</span>
+          <span class="role-name">Sou Professor</span>
+          <span class="role-desc muted small">Acompanhe o desempenho da turma e de cada aluno.</span>
+        </a>
+      </div>
+      <p class="muted small center" style="margin-top:18px">
+        Primeiro acesso?
+        <a href="https://seductec.seduc.pi.gov.br/login/index.php?loginredirect=1" target="_blank" rel="noopener">Entrar pelo SEDUCTEC ↗</a>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============ ACCESSIBILITY PANEL ============ -->
+  <aside class="a11y-panel" id="a11yPanel" aria-label="Painel de acessibilidade" hidden>
+    <header class="a11y-head">
+      <h3>Acessibilidade</h3>
+      <button class="modal-close" id="closeA11y" aria-label="Fechar painel">×</button>
+    </header>
+    <div class="a11y-body">
+      <div class="a11y-group">
+        <p class="a11y-label">Tamanho do texto</p>
+        <div class="seg" role="radiogroup" aria-label="Tamanho do texto">
+          <button data-font="sm">A-</button>
+          <button data-font="md" aria-pressed="true">A</button>
+          <button data-font="lg">A+</button>
+          <button data-font="xl">A++</button>
+        </div>
+      </div>
+      <div class="a11y-group">
+        <p class="a11y-label">Contraste</p>
+        <div class="seg">
+          <button data-theme="dark" aria-pressed="true">Escuro</button>
+          <button data-theme="hc">Alto contraste</button>
+          <button data-theme="light">Claro</button>
+        </div>
+      </div>
+      <div class="a11y-group">
+        <label class="switch"><input type="checkbox" id="motionToggle" checked /> <span>Animações suaves</span></label>
+        <label class="switch"><input type="checkbox" id="soundToggle" /> <span>Sons (sempre suaves)</span></label>
+        <label class="switch"><input type="checkbox" id="readerToggle" /> <span>Leitor de texto (clique para ler)</span></label>
+        <label class="switch"><input type="checkbox" id="reduceToggle" /> <span>Reduzir estímulos visuais</span></label>
+      </div>
+      <p class="muted small">Suas preferências ficam salvas neste dispositivo.</p>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

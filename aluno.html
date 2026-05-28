@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Perfil do aluno no Ronny — plataforma, atividades e ambiente de programação em blocos." />
+  <meta name="theme-color" content="#0f1419" />
+  <title>Perfil do aluno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/Ronny-Capa.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/msg/pt-br.js"></script>
+</head>
+
+<body data-theme="dark" data-font="md" data-motion="on">
+
+  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
+  <header class="topbar" role="banner">
+    <div class="container topbar-inner">
+      <a href="index.html" class="brand" aria-label="Voltar para a página inicial do Ronny">
+        <img src="/ronny-logo.jpeg" alt="Logo Projeto Ronny" class="brand-logo" width="44" height="44" />
+        <span class="brand-text">Ronny</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="index.html">🏠 Tela inicial</a>
+        <a href="#aluno-plataforma">Plataforma</a>
+        <a href="#aluno-atividade">Atividade</a>
+        <a href="#aluno-programar">Programar</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="openA11y" aria-label="Abrir painel de acessibilidade" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="2" fill="currentColor"/><path d="M5 9h14M9 9l1 12M15 9l-1 12M9 14h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span>Acessibilidade</span>
+        </button>
+        <a href="index.html" class="btn btn-soft">← Início</a>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="section" id="perfilAluno">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Perfil do aluno</span>
+          <h1>Olá! Aqui é o seu espaço. 🌿</h1>
+          <p class="muted">Login realizado via <a href="https://seductec.seduc.pi.gov.br/login/index.php?loginredirect=1" target="_blank" rel="noopener">SEDUCTEC</a>. Edite seu perfil e siga no seu ritmo.</p>
+        </header>
+
+        <!-- ===== Perfil editável (único aluno) ===== -->
+        <div class="panel profile-edit">
+          <div class="profile-avatar-area">
+            <div class="avatar avatar-lg" id="profAvatar">🦊</div>
+            <div class="avatar-pick-row" role="radiogroup" aria-label="Escolher avatar">
+              <button class="avatar-chip" data-emoji="🦊" aria-checked="true">🦊</button>
+              <button class="avatar-chip" data-emoji="🐼" aria-checked="false">🐼</button>
+              <button class="avatar-chip" data-emoji="🐨" aria-checked="false">🐨</button>
+              <button class="avatar-chip" data-emoji="🦁" aria-checked="false">🦁</button>
+              <button class="avatar-chip" data-emoji="🦉" aria-checked="false">🦉</button>
+              <button class="avatar-chip" data-emoji="🐰" aria-checked="false">🐰</button>
+            </div>
+          </div>
+
+          <form class="profile-form" id="profileForm" autocomplete="off">
+            <label class="field">
+              <span>Nome</span>
+              <input type="text" id="fNome" value="Lara Mendes" />
+            </label>
+            <label class="field">
+              <span>Escola</span>
+              <input type="text" id="fEscola" value="Escola Técnica SEDUC-PI" />
+            </label>
+            <label class="field">
+              <span>Turma</span>
+              <input type="text" id="fTurma" value="3º A — Desenvolvimento de Sistemas" />
+            </label>
+            <label class="field">
+              <span>Nível atual</span>
+              <input type="text" id="fNivel" value="Nível 3 · Explorador da Lógica" />
+            </label>
+            <label class="field field-full">
+              <span>Sobre mim (opcional)</span>
+              <textarea id="fBio" rows="2" placeholder="Conte algo que você gosta...">Gosto de jogos, animais e resolver enigmas com calma.</textarea>
+            </label>
+            <div class="profile-actions">
+              <button type="submit" class="btn btn-primary">💾 Salvar perfil</button>
+              <span class="muted small" id="profileSaved" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Áreas do aluno" style="margin-top:24px">
+          <button class="tab" role="tab" aria-selected="true" data-tab="aluno-plataforma">🏠 Jornada</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="aluno-atividade">🧩 Atividade</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="aluno-programar">💻 Programar</button>
+        </div>
+
+        <!-- Plataforma -->
+        <div class="tab-panel" id="aluno-plataforma" role="tabpanel">
+          <div class="dashboard">
+            <aside class="dash-side" aria-label="Resumo do aluno">
+              <div class="avatar" id="sideAvatar">🦊</div>
+              <p class="hi">Olá, <strong id="alunoNome">Lara</strong>!</p>
+              <p class="muted" id="sideNivel">Nível 3 · Explorador da Lógica</p>
+
+              <div class="progress" aria-label="Progresso geral">
+                <div class="progress-bar"><span style="width:62%"></span></div>
+                <p class="muted small">62% da jornada</p>
+              </div>
+
+              <div class="badges" aria-label="Conquistas">
+                <span class="badge" title="Primeiro algoritmo">🌟</span>
+                <span class="badge" title="Foco de 20 minutos">🧘</span>
+                <span class="badge" title="5 dias seguidos">🌿</span>
+                <span class="badge dim" title="A conquistar">🔒</span>
+              </div>
+
+              <button class="btn btn-soft btn-block" id="focusMode">🎧 Ativar modo foco</button>
+            </aside>
+
+            <div class="dash-main">
+              <h3 class="dash-title">Roteiro de hoje</h3>
+              <ol class="roadmap" role="list">
+                <li class="step done"><span class="step-mark" aria-hidden="true">✓</span><div><p class="step-title">Aquecimento — Sequências</p><p class="muted small">5 min · concluído</p></div></li>
+                <li class="step current"><span class="step-mark" aria-hidden="true">▶</span><div><p class="step-title">Missão: Guie o robô até a planta</p><p class="muted small">10 min · em andamento</p><button class="btn btn-primary btn-sm" data-goto-tab="aluno-programar">Abrir missão</button></div></li>
+                <li class="step"><span class="step-mark" aria-hidden="true">3</span><div><p class="step-title">Repetições com calma</p><p class="muted small">8 min</p></div></li>
+                <li class="step"><span class="step-mark" aria-hidden="true">4</span><div><p class="step-title">Reflexão final</p><p class="muted small">3 min</p></div></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atividade -->
+        <div class="tab-panel" id="aluno-atividade" role="tabpanel" hidden>
+          <header class="section-head">
+            <span class="eyebrow">Atividades em blocos</span>
+            <h2>Desafios de programação visual, no seu ritmo.</h2>
+            <p>Escolha uma atividade. Ela abrirá o editor Blockly na aba <strong>Programar</strong>.</p>
+          </header>
+          <div class="grid grid-3" id="missionList" aria-label="Lista de atividades"></div>
+        </div>
+
+        <!-- Programar -->
+        <div class="tab-panel" id="aluno-programar" role="tabpanel" hidden>
+          <header class="section-head">
+            <span class="eyebrow">Editor Blockly</span>
+            <h2 id="missionTitle">Arraste blocos. Monte ideias. Veja acontecer.</h2>
+            <p id="missionDesc">Escolha uma atividade na aba anterior ou comece livremente abaixo.</p>
+          </header>
+
+          <div class="editor editor-blockly">
+            <div class="blockly-wrap">
+              <div id="blocklyDiv" aria-label="Área de programação em blocos"></div>
+            </div>
+
+            <div class="stage" aria-label="Resultado da execução">
+              <p class="stage-title" id="stageTitle">Missão livre</p>
+              <div class="stage-grid" id="stageGrid" aria-label="Mapa do robô"></div>
+              <div class="stage-actions">
+                <button class="btn btn-primary btn-block" id="runBtn">▶ Executar</button>
+                <button class="btn btn-soft btn-block" id="resetBtn">↺ Recomeçar</button>
+                <button class="btn btn-ghost btn-block" id="clearBtn">🧹 Limpar blocos</button>
+              </div>
+              <p class="feedback" id="feedback" aria-live="polite">Pronto quando você estiver 😊</p>
+            </div>
+          </div>
+
+          <xml id="ronnyToolbox" style="display:none">
+            <category name="Movimento" colour="#7fb59a">
+              <block type="ronny_avancar"></block>
+              <block type="ronny_virar_esq"></block>
+              <block type="ronny_virar_dir"></block>
+              <block type="ronny_dizer"><value name="MSG"><shadow type="text"><field name="TEXT">Oi!</field></shadow></value></block>
+            </category>
+            <category name="Lógica" colour="#d6a96a">
+              <block type="controls_if"></block><block type="logic_compare"></block><block type="logic_operation"></block><block type="logic_boolean"></block>
+              <block type="ronny_tem_obstaculo"></block><block type="ronny_chegou"></block>
+            </category>
+            <category name="Repetições" colour="#c98a8a">
+              <block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">3</field></shadow></value></block>
+              <block type="controls_whileUntil"></block>
+              <block type="controls_for"><value name="FROM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="TO"><shadow type="math_number"><field name="NUM">5</field></shadow></value><value name="BY"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>
+            </category>
+            <category name="Matemática" colour="#6c8ed1"><block type="math_number"></block><block type="math_arithmetic"></block><block type="math_modulo"></block></category>
+            <category name="Texto" colour="#b58fcf"><block type="text"></block><block type="text_join"></block></category>
+            <category name="Variáveis" colour="#b58fcf" custom="VARIABLE"></category>
+            <category name="Funções" colour="#8aa0b3" custom="PROCEDURE"></category>
+          </xml>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-bottom">
+      <p class="muted small">© <span id="year"></span> Ronny · <a href="index.html">Voltar para a tela inicial</a></p>
+    </div>
+  </footer>
+
+  <aside class="a11y-panel" id="a11yPanel" aria-label="Painel de acessibilidade" hidden>
+    <header class="a11y-head"><h3>Acessibilidade</h3><button class="modal-close" id="closeA11y" aria-label="Fechar painel">×</button></header>
+    <div class="a11y-body">
+      <div class="a11y-group"><p class="a11y-label">Tamanho do texto</p>
+        <div class="seg" role="radiogroup" aria-label="Tamanho do texto">
+          <button data-font="sm">A-</button><button data-font="md" aria-pressed="true">A</button><button data-font="lg">A+</button><button data-font="xl">A++</button>
+        </div>
+      </div>
+      <div class="a11y-group"><p class="a11y-label">Contraste</p>
+        <div class="seg"><button data-theme="dark" aria-pressed="true">Escuro</button><button data-theme="hc">Alto contraste</button><button data-theme="light">Claro</button></div>
+      </div>
+      <div class="a11y-group">
+        <label class="switch"><input type="checkbox" id="motionToggle" checked /> <span>Animações suaves</span></label>
+        <label class="switch"><input type="checkbox" id="soundToggle" /> <span>Sons (sempre suaves)</span></label>
+        <label class="switch"><input type="checkbox" id="readerToggle" /> <span>Leitor de texto (clique para ler)</span></label>
+        <label class="switch"><input type="checkbox" id="reduceToggle" /> <span>Reduzir estímulos visuais</span></label>
+      </div>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
